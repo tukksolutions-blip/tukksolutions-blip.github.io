@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Tukk Reviews | Home Help, Matched by Hand</title>
+<meta name="description" content="Reviews for Tukk Reviews, a Toronto-based home-help matching service. Read what homeowners and pros say, and leave a review if we connected you.">
+<style>
+:root{--brand:#1d4ed8;--dark:#0a1633;--accent:#22d3ee;--ink:#101820;--muted:#5b6b7a;--bg:#f6f8fa;--card:#fff;--line:#e3eaf0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+header.site{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:14px 20px}
+.logo{font-weight:800;font-size:1.12rem;color:var(--dark);text-decoration:none;margin-right:auto}
+.logo em{color:var(--brand);font-style:normal}
+.nav a.back{color:var(--ink);text-decoration:none;font-size:.95rem;font-weight:600}
+.hero{background:linear-gradient(130deg,var(--dark),var(--brand));color:#fff;padding:64px 20px 70px;text-align:center}
+.hero h1{font-size:2.4rem;line-height:1.16;max-width:780px;margin:0 auto 16px;letter-spacing:-.5px}
+.hero p{opacity:.93;max-width:640px;margin:0 auto;font-size:1.06rem}
+.hero .stamp{display:inline-block;margin-top:22px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);padding:7px 16px;border-radius:999px;font-size:.9rem;font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:48px 20px}
+h2{font-size:1.65rem;color:var(--dark);margin-bottom:8px;letter-spacing:-.3px}
+.sub{color:var(--muted);margin-bottom:26px;max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(16,24,32,.04)}
+.card h3{margin-bottom:8px;font-size:1.12rem}
+.card p{font-size:.97rem;color:var(--ink)}
+.stepnum{display:inline-block;background:var(--brand);color:#fff;font-weight:800;border-radius:999px;width:30px;height:30px;line-height:30px;text-align:center;margin-bottom:10px}
+.pill{display:inline-block;background:#e8f0fe;color:var(--brand);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.85rem;margin-bottom:10px}
+.free{font-size:1.9rem;font-weight:800;color:var(--brand);line-height:1.2}
+.fineprint{color:var(--muted);font-size:.92rem;margin-top:10px}
+section.block{margin-bottom:52px}
+ul.checks{list-style:none;max-width:760px}
+ul.checks li{padding:10px 0;border-bottom:1px solid var(--line);font-size:1rem}
+ul.checks li strong{color:var(--dark)}
+footer{border-top:1px solid var(--line);background:#fff;padding:28px 20px;text-align:center;color:var(--muted);font-size:.92rem}
+a.cta{display:inline-block;margin-top:18px;background:#fff;color:var(--brand);font-weight:800;text-decoration:none;padding:12px 26px;border-radius:999px}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="nav">
+    <a class="logo" href="https://tukkhome.xyz/">Tukk <em>Reviews</em></a>
+    <a class="back" href="https://tukkhome.xyz/">Home</a>
+    <a class="back" href="https://tukkhome.xyz/costs/">GTA Home Cost Index</a>
+  </div>
+</header>
+<div class="hero">
+  <h1>Reviews</h1>
+  <p>Connected through Tukk Reviews — as a homeowner or as a pro? This is where your review lives. Every review below was submitted on this page and posted only with the reviewer's permission, exactly as written.</p>
+  <div class="stamp">Homeowners and pros, in their own words</div>
+</div>
+<main>
+  <section class="block">
+    <h2>What people say</h2>
+    <p class="sub">Real reviews from homeowners and pros we've connected — posted only with the reviewer's permission, exactly as written. This section is new, so it fills in as our first connections complete; we'd rather show you a short honest list than a decorated one.</p>
+    <div id="reviews-list"></div>
+    <div class="card">
+      <h3>Leave a review</h3>
+      <p style="margin-bottom:14px">Were you connected through Tukk Reviews — as a homeowner or as a pro? Tell us how it went. Reviews are emailed to us and posted here only if you tick the permission box below.</p>
+      <form action="https://formsubmit.co/tukkreviews@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New Tukk Reviews review submission">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_next" value="https://tukkhome.xyz/reviews/?thanks=1">
+        <input type="text" name="_honey" style="display:none">
+        <div style="margin-bottom:12px"><label for="rv-name" style="display:block;font-weight:600;margin-bottom:4px">Your first name</label><input id="rv-name" type="text" name="First name" required maxlength="40" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></div>
+        <div style="margin-bottom:12px"><label for="rv-city" style="display:block;font-weight:600;margin-bottom:4px">Your city</label><input id="rv-city" type="text" name="City" required maxlength="40" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></div>
+        <div style="margin-bottom:12px"><label for="rv-role" style="display:block;font-weight:600;margin-bottom:4px">You are a</label><select id="rv-role" name="Reviewer type" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"><option value="">Choose one…</option><option>Homeowner</option><option>Service pro</option></select></div>
+        <div style="margin-bottom:12px"><label for="rv-job" style="display:block;font-weight:600;margin-bottom:4px">What was the job?</label><input id="rv-job" type="text" name="Job" required maxlength="80" placeholder="e.g. Basement deep clean" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></div>
+        <div style="margin-bottom:12px"><label for="rv-rating" style="display:block;font-weight:600;margin-bottom:4px">Your rating</label><select id="rv-rating" name="Star rating" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"><option value="">Choose one…</option><option value="5">★★★★★ — Excellent</option><option value="4">★★★★☆ — Good</option><option value="3">★★★☆☆ — Okay</option><option value="2">★★☆☆☆ — Poor</option><option value="1">★☆☆☆☆ — Bad</option></select></div>
+        <div style="margin-bottom:12px"><label for="rv-text" style="display:block;font-weight:600;margin-bottom:4px">Your review</label><textarea id="rv-text" name="Review" required rows="4" maxlength="600" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></textarea></div>
+        <div style="margin-bottom:16px"><label style="display:flex;gap:8px;align-items:flex-start"><input type="checkbox" name="Permission to publish" value="Yes" required style="margin-top:5px"><span>Yes — you may publish this review on this page with my first name, city, and whether I was the homeowner or the pro.</span></label></div>
+        <button type="submit" style="background:var(--brand);color:#fff;font-weight:800;border:none;padding:12px 26px;border-radius:999px;font-size:1rem;cursor:pointer">Send my review</button>
+      </form>
+    </div>
+  </section>
+<script>
+(function(){var p=new URLSearchParams(location.search);if(p.get('thanks')==='1'){var b=document.createElement('div');b.setAttribute('style','background:#e6f4ea;border:1px solid #34a853;border-radius:12px;padding:14px 18px;margin-bottom:18px;font-weight:600');b.textContent='Thank you — your review was sent. We post reviews with permission, usually within a day or two.';var s=document.querySelector('main section.block');if(s){s.insertBefore(b,s.children[1]);}}})();
+</script>
+</main>
+<footer>
+  Tukk Reviews · Home Help, Matched by Hand · Toronto, Ontario, Canada · tukkreviews@gmail.com<br>
+  Part of the Tukk family — see also the <a href="https://tukkhome.xyz/costs/">GTA Home Cost Index</a>.
+</footer>
+</body>
+</html>
