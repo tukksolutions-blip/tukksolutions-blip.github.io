@@ -81,8 +81,30 @@ a.cta{display:inline-block;margin-top:18px;background:#fff;color:var(--brand);fo
   </section>
   <section class="block">
     <h2>What people say</h2>
-    <p class="sub">This section fills in as our first connections complete — we'd rather show you real words from real jobs than decorate the page. If we've connected you, ask us how to be listed here.</p>
+    <p class="sub">Real reviews from homeowners and pros we've connected — posted only with the reviewer's permission, exactly as written. This section is new, so it fills in as our first connections complete; we'd rather show you a short honest list than a decorated one.</p>
+    <div id="reviews-list"></div>
+    <div class="card">
+      <h3>Leave a review</h3>
+      <p style="margin-bottom:14px">Were you connected through Tukk Reviews — as a homeowner or as a pro? Tell us how it went. Reviews are emailed to us and posted here only if you tick the permission box below.</p>
+      <form action="https://formsubmit.co/tukkreviews@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New Tukk Reviews review submission">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_next" value="https://tukksolutions-blip.github.io/tukk-reviews/?thanks=1">
+        <input type="text" name="_honey" style="display:none">
+        <div style="margin-bottom:12px"><label for="rv-name" style="display:block;font-weight:600;margin-bottom:4px">Your first name</label><input id="rv-name" type="text" name="First name" required maxlength="40" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></div>
+        <div style="margin-bottom:12px"><label for="rv-city" style="display:block;font-weight:600;margin-bottom:4px">Your city</label><input id="rv-city" type="text" name="City" required maxlength="40" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></div>
+        <div style="margin-bottom:12px"><label for="rv-role" style="display:block;font-weight:600;margin-bottom:4px">You are a</label><select id="rv-role" name="Reviewer type" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"><option value="">Choose one…</option><option>Homeowner</option><option>Service pro</option></select></div>
+        <div style="margin-bottom:12px"><label for="rv-job" style="display:block;font-weight:600;margin-bottom:4px">What was the job?</label><input id="rv-job" type="text" name="Job" required maxlength="80" placeholder="e.g. Basement deep clean" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></div>
+        <div style="margin-bottom:12px"><label for="rv-rating" style="display:block;font-weight:600;margin-bottom:4px">Your rating</label><select id="rv-rating" name="Star rating" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"><option value="">Choose one…</option><option value="5">★★★★★ — Excellent</option><option value="4">★★★★☆ — Good</option><option value="3">★★★☆☆ — Okay</option><option value="2">★★☆☆☆ — Poor</option><option value="1">★☆☆☆☆ — Bad</option></select></div>
+        <div style="margin-bottom:12px"><label for="rv-text" style="display:block;font-weight:600;margin-bottom:4px">Your review</label><textarea id="rv-text" name="Review" required rows="4" maxlength="600" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:1rem"></textarea></div>
+        <div style="margin-bottom:16px"><label style="display:flex;gap:8px;align-items:flex-start"><input type="checkbox" name="Permission to publish" value="Yes" required style="margin-top:5px"><span>Yes — you may publish this review on this page with my first name, city, and whether I was the homeowner or the pro.</span></label></div>
+        <button type="submit" style="background:var(--brand);color:#fff;font-weight:800;border:none;padding:12px 26px;border-radius:999px;font-size:1rem;cursor:pointer">Send my review</button>
+      </form>
+    </div>
   </section>
+<script>
+(function(){var p=new URLSearchParams(location.search);if(p.get('thanks')==='1'){var b=document.createElement('div');b.setAttribute('style','background:#e6f4ea;border:1px solid #34a853;border-radius:12px;padding:14px 18px;margin-bottom:18px;font-weight:600');b.textContent='Thank you — your review was sent. We post reviews with permission, usually within a day or two.';var s=document.querySelector('section.block:last-of-type');if(s){s.insertBefore(b,s.children[1]);}}})();
+</script>
 </main>
 <footer>
   Tukk Reviews · Home Help, Matched by Hand · Toronto, Ontario, Canada · tukkreviews@gmail.com<br>
