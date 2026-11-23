@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Roof Medic — Instant Quote Calculator</title>
+<style>
+:root{--brand:#a41623;--dark:#2b0d10;--accent:#ffb020;--ink:#14181d;--muted:#5b6b7a;--bg:#fbf1f1;--card:#fff;--line:#e3e8ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+header{background:linear-gradient(135deg,var(--dark),var(--brand));color:#fff;padding:30px 20px 26px;text-align:center}
+header h1{font-size:1.65rem;line-height:1.25;margin-bottom:6px}
+header .sub{font-size:1.02rem;opacity:.92}
+header .rating{display:inline-block;margin-top:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:5px 14px;border-radius:999px;font-size:.92rem;font-weight:600}
+main{max-width:560px;margin:0 auto;padding:20px 16px 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 4px 18px rgba(16,24,40,.06)}
+.field{margin-bottom:18px}
+label{display:block;font-weight:650;font-size:.98rem;margin-bottom:7px}
+select,input[type=number]{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;font-size:1rem;background:#fff;color:var(--ink)}
+select:focus,input:focus{outline:2px solid var(--brand);outline-offset:1px}
+.checks label{font-weight:500;display:flex;gap:10px;align-items:center;padding:7px 0;font-size:.98rem}
+.checks input{width:20px;height:20px;accent-color:var(--brand)}
+input[type=range]{width:100%;accent-color:var(--brand)}
+button.go{width:100%;background:var(--brand);color:#fff;border:none;padding:15px;border-radius:11px;font-size:1.08rem;font-weight:700;cursor:pointer;margin-top:4px}
+button.go:active{transform:scale(.99)}
+.result{display:none;margin-top:20px;background:var(--bg);border:2px solid var(--brand);border-radius:12px;padding:18px;text-align:center}
+.result .amt{font-size:1.85rem;font-weight:800;color:var(--dark)}
+.result .ctx{margin-top:7px;font-size:.96rem;color:var(--ink)}
+.result .note{margin-top:9px;font-size:.9rem;font-weight:650;color:var(--brand)}
+.fineprint{font-size:.86rem;color:var(--muted);margin:16px 2px 0}
+.banner{max-width:560px;margin:22px auto 30px;padding:0 16px}
+.banner .inner{background:var(--dark);color:#fff;border-radius:14px;padding:20px;text-align:center;font-size:.97rem}
+.banner b{color:var(--accent)}
+.banner a{color:var(--accent);font-weight:700}
+footer{text-align:center;font-size:.82rem;color:var(--muted);padding:0 16px 26px}
+</style>
+</head>
+<body>
+<header>
+<h1>The Roof Medic</h1>
+<div class="sub">Instant Quote Calculator — Roofing Cost Estimator</div>
+<div class="rating">Rated 4.9&#9733; from 174 Google reviews</div>
+</header>
+<main>
+<div class="card">
+
+<div class="field"><label for="service">What do you need?</label>
+<select id="service" onchange="toggleRoof()">
+<option value="replacement">Full roof replacement</option>
+<option value="repair">Roof repair</option>
+<option value="inspection">Roof inspection</option>
+</select></div>
+<div class="field" id="typeField"><label for="rtype">Roof type</label>
+<select id="rtype">
+<option value="asphalt">Asphalt shingle</option>
+<option value="metal">Metal</option>
+<option value="flat">Flat roof</option>
+</select></div>
+<div class="field" id="sizeField"><label for="sqft">Roof size (sq ft)</label>
+<input type="number" id="sqft" value="1800" min="300" max="10000" step="50">
+<p style="font-size:.86rem;color:var(--muted);margin-top:5px">Not sure? A typical GTA home's roof is roughly 1,200&ndash;2,400 sq ft including pitch and overhangs.</p></div>
+<div class="field" id="pitchField"><label for="pitch">Roof pitch</label>
+<select id="pitch">
+<option value="standard">Standard pitch</option>
+<option value="steep">Steep pitch</option>
+</select></div>
+
+<button class="go" onclick="calc()">Get my ballpark estimate</button>
+<div class="result" id="result">
+<div class="amt" id="amt"></div>
+<div class="ctx" id="ctx"></div>
+<div class="note" id="note"></div>
+</div>
+<p class="fineprint">Ballpark estimate only — your exact quote is confirmed after inspection. Ranges are typical GTA market ranges; The Roof Medic sets its own final prices.</p>
+</div>
+</main>
+<div class="banner"><div class="inner">This free demo was built for The Roof Medic by <b>Tukk Solutions</b>. Want this calculator live on your own website, under your name, with your prices? It&rsquo;s part of our <b>CA$99/month</b> website plan — no setup fee. <a href="mailto:tukksolutions@gmail.com">tukksolutions@gmail.com</a></div></div>
+<footer>Instant Quote Calculator for The Roof Medic &middot; Milton</footer>
+<script>
+function fmt(n){return "CA$"+Math.round(n).toLocaleString("en-CA")}
+function show(lo,hi,ctx,note){var r=document.getElementById("result");r.style.display="block";document.getElementById("amt").textContent=fmt(lo)+" \u2013 "+fmt(hi);document.getElementById("ctx").textContent=ctx;var n=document.getElementById("note");if(note){n.textContent=note;n.style.display="block"}else{n.style.display="none"}r.scrollIntoView({behavior:"smooth",block:"center"})}
+
+function toggleRoof(){
+ var s=document.getElementById("service").value;
+ var rep=(s==="replacement");
+ document.getElementById("typeField").style.display=rep?"block":"none";
+ document.getElementById("sizeField").style.display=rep?"block":"none";
+ document.getElementById("pitchField").style.display=rep?"block":"none";
+}
+function calc(){
+ var s=document.getElementById("service").value;
+ if(s==="inspection"){show(150,300,"Roof inspection with a condition report — typical GTA range.","");return}
+ if(s==="repair"){show(350,950,"Roof repair (leak fix, shingle/flashing work) — typical GTA range. Final price depends on what the inspection finds.","");return}
+ var t=document.getElementById("rtype").value;
+ var sq=parseInt(document.getElementById("sqft").value)||0;
+ var rates={asphalt:[4.50,7.50],metal:[10,16],flat:[7,12]};
+ var names={asphalt:"asphalt shingle",metal:"metal",flat:"flat"};
+ var r=rates[t];
+ var lo=r[0]*sq, hi=r[1]*sq;
+ var steep=document.getElementById("pitch").value==="steep";
+ if(steep){lo*=1.15;hi*=1.15}
+ var ctx="Full "+names[t]+" roof replacement for a "+sq.toLocaleString("en-CA")+" sq ft roof"+(steep?" (steep pitch, +15%)":"")+" — typical GTA range, tear-off and disposal included.";
+ show(lo,hi,ctx,"");
+}
+
+</script>
+</body>
+</html>

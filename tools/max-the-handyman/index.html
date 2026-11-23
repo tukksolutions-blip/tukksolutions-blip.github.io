@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max The Handyman — Instant Quote Calculator</title>
+<style>
+:root{--brand:#b3540e;--dark:#2b1a0e;--accent:#ffb020;--ink:#14181d;--muted:#5b6b7a;--bg:#fdf6ee;--card:#fff;--line:#e3e8ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+header{background:linear-gradient(135deg,var(--dark),var(--brand));color:#fff;padding:30px 20px 26px;text-align:center}
+header h1{font-size:1.65rem;line-height:1.25;margin-bottom:6px}
+header .sub{font-size:1.02rem;opacity:.92}
+header .rating{display:inline-block;margin-top:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:5px 14px;border-radius:999px;font-size:.92rem;font-weight:600}
+main{max-width:560px;margin:0 auto;padding:20px 16px 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 4px 18px rgba(16,24,40,.06)}
+.field{margin-bottom:18px}
+label{display:block;font-weight:650;font-size:.98rem;margin-bottom:7px}
+select,input[type=number]{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;font-size:1rem;background:#fff;color:var(--ink)}
+select:focus,input:focus{outline:2px solid var(--brand);outline-offset:1px}
+.checks label{font-weight:500;display:flex;gap:10px;align-items:center;padding:7px 0;font-size:.98rem}
+.checks input{width:20px;height:20px;accent-color:var(--brand)}
+input[type=range]{width:100%;accent-color:var(--brand)}
+button.go{width:100%;background:var(--brand);color:#fff;border:none;padding:15px;border-radius:11px;font-size:1.08rem;font-weight:700;cursor:pointer;margin-top:4px}
+button.go:active{transform:scale(.99)}
+.result{display:none;margin-top:20px;background:var(--bg);border:2px solid var(--brand);border-radius:12px;padding:18px;text-align:center}
+.result .amt{font-size:1.85rem;font-weight:800;color:var(--dark)}
+.result .ctx{margin-top:7px;font-size:.96rem;color:var(--ink)}
+.result .note{margin-top:9px;font-size:.9rem;font-weight:650;color:var(--brand)}
+.fineprint{font-size:.86rem;color:var(--muted);margin:16px 2px 0}
+.banner{max-width:560px;margin:22px auto 30px;padding:0 16px}
+.banner .inner{background:var(--dark);color:#fff;border-radius:14px;padding:20px;text-align:center;font-size:.97rem}
+.banner b{color:var(--accent)}
+.banner a{color:var(--accent);font-weight:700}
+footer{text-align:center;font-size:.82rem;color:var(--muted);padding:0 16px 26px}
+</style>
+</head>
+<body>
+<header>
+<h1>Max The Handyman</h1>
+<div class="sub">Instant Quote Calculator — Handyman Cost Estimator</div>
+<div class="rating">Rated 5.0&#9733; from 47 Google reviews</div>
+</header>
+<main>
+<div class="card">
+
+<div class="field"><label for="job">What kind of job is it?</label>
+<select id="job">
+<option value="small">Small repairs &amp; odd jobs (drywall patch, fixtures, mounting)</option>
+<option value="install">Installations (doors, trim, shelving, hardware)</option>
+<option value="reno">Room refresh (flooring, tiling, carpentry)</option>
+<option value="exterior">Exterior &amp; seasonal (fences, decks, caulking, gutters)</option>
+</select></div>
+<div class="field"><label for="hours">Roughly how many hours of work?</label>
+<select id="hours"><option value="2">About 2 hours</option><option value="4" selected>Half a day (~4 hours)</option><option value="8">A full day (~8 hours)</option><option value="16">Two days (~16 hours)</option><option value="40">A full week (~40 hours)</option></select></div>
+<div class="field checks"><label><input type="checkbox" id="materials"> Materials supplied by the handyman</label></div>
+
+<button class="go" onclick="calc()">Get my ballpark estimate</button>
+<div class="result" id="result">
+<div class="amt" id="amt"></div>
+<div class="ctx" id="ctx"></div>
+<div class="note" id="note"></div>
+</div>
+<p class="fineprint">Ballpark estimate only — your exact quote is confirmed after inspection. Ranges are typical GTA market ranges; Max The Handyman sets its own final prices.</p>
+</div>
+</main>
+<div class="banner"><div class="inner">This free demo was built for Max The Handyman by <b>Tukk Solutions</b>. Want this calculator live on your own website, under your name, with your prices? It&rsquo;s part of our <b>CA$99/month</b> website plan — no setup fee. <a href="mailto:tukksolutions@gmail.com">tukksolutions@gmail.com</a></div></div>
+<footer>Instant Quote Calculator for Max The Handyman &middot; Hamilton</footer>
+<script>
+function fmt(n){return "CA$"+Math.round(n).toLocaleString("en-CA")}
+function show(lo,hi,ctx,note){var r=document.getElementById("result");r.style.display="block";document.getElementById("amt").textContent=fmt(lo)+" \u2013 "+fmt(hi);document.getElementById("ctx").textContent=ctx;var n=document.getElementById("note");if(note){n.textContent=note;n.style.display="block"}else{n.style.display="none"}r.scrollIntoView({behavior:"smooth",block:"center"})}
+
+function calc(){
+ var j=document.getElementById("job").value;
+ var h=parseInt(document.getElementById("hours").value);
+ var rate=(j==="reno")?[85,115]:(j==="install"?[75,100]:(j==="exterior"?[70,95]:[65,90]));
+ var lo=rate[0]*h, hi=rate[1]*h;
+ if(document.getElementById("materials").checked){lo*=1.15;hi*=1.3}
+ show(lo,hi,"Handyman labour for about "+h+" hours — typical GTA market range; exact quote confirmed after a quick look at the job.","");
+}
+
+</script>
+</body>
+</html>
