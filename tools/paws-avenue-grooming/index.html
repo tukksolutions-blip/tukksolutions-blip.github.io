@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paws Avenue Grooming Salon — Instant Quote Calculator</title>
+<style>
+:root{--brand:#9d4edd;--dark:#3c096c;--accent:#ffb703;--ink:#14181d;--muted:#5b6b7a;--bg:#f7f0fc;--card:#fff;--line:#e3e8ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+header{background:linear-gradient(135deg,var(--dark),var(--brand));color:#fff;padding:30px 20px 26px;text-align:center}
+header h1{font-size:1.65rem;line-height:1.25;margin-bottom:6px}
+header .sub{font-size:1.02rem;opacity:.92}
+header .rating{display:inline-block;margin-top:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:5px 14px;border-radius:999px;font-size:.92rem;font-weight:600}
+main{max-width:560px;margin:0 auto;padding:20px 16px 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 4px 18px rgba(16,24,40,.06)}
+.field{margin-bottom:18px}
+label{display:block;font-weight:650;font-size:.98rem;margin-bottom:7px}
+select,input[type=number]{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;font-size:1rem;background:#fff;color:var(--ink)}
+select:focus,input:focus{outline:2px solid var(--brand);outline-offset:1px}
+.checks label{font-weight:500;display:flex;gap:10px;align-items:center;padding:7px 0;font-size:.98rem}
+.checks input{width:20px;height:20px;accent-color:var(--brand)}
+input[type=range]{width:100%;accent-color:var(--brand)}
+button.go{width:100%;background:var(--brand);color:#fff;border:none;padding:15px;border-radius:11px;font-size:1.08rem;font-weight:700;cursor:pointer;margin-top:4px}
+button.go:active{transform:scale(.99)}
+.result{display:none;margin-top:20px;background:var(--bg);border:2px solid var(--brand);border-radius:12px;padding:18px;text-align:center}
+.result .amt{font-size:1.85rem;font-weight:800;color:var(--dark)}
+.result .ctx{margin-top:7px;font-size:.96rem;color:var(--ink)}
+.result .note{margin-top:9px;font-size:.9rem;font-weight:650;color:var(--brand)}
+.fineprint{font-size:.86rem;color:var(--muted);margin:16px 2px 0}
+.banner{max-width:560px;margin:22px auto 30px;padding:0 16px}
+.banner .inner{background:var(--dark);color:#fff;border-radius:14px;padding:20px;text-align:center;font-size:.97rem}
+.banner b{color:var(--accent)}
+.banner a{color:var(--accent);font-weight:700}
+footer{text-align:center;font-size:.82rem;color:var(--muted);padding:0 16px 26px}
+</style>
+</head>
+<body>
+<header>
+<h1>Paws Avenue Grooming Salon</h1>
+<div class="sub">Instant Quote Calculator — Grooming Price Estimator</div>
+<div class="rating">Rated 4.6&#9733; from 178 Google reviews</div>
+</header>
+<main>
+<div class="card">
+
+<div class="field"><label for="size">Dog size</label>
+<select id="size">
+<option value="small">Small (under 25 lb)</option>
+<option value="medium" selected>Medium (25–50 lb)</option>
+<option value="large">Large (50–85 lb)</option>
+<option value="xl">Extra large (85 lb +)</option>
+</select></div>
+<div class="field"><label for="coat">Coat condition</label>
+<select id="coat">
+<option value="short">Short / smooth coat</option>
+<option value="long">Long coat</option>
+<option value="matted">Matted coat</option>
+</select></div>
+<div class="field checks"><label>Services</label>
+<label><input type="checkbox" checked disabled> Bath &amp; brush (included in base)</label>
+<label><input type="checkbox" id="cut"> Full cut / styling</label>
+<label><input type="checkbox" id="deshed"> De-shedding treatment</label>
+<label><input type="checkbox" id="nails"> Nail trim</label>
+<label><input type="checkbox" id="teeth"> Teeth cleaning</label></div>
+
+<button class="go" onclick="calc()">Get my ballpark estimate</button>
+<div class="result" id="result">
+<div class="amt" id="amt"></div>
+<div class="ctx" id="ctx"></div>
+<div class="note" id="note"></div>
+</div>
+<p class="fineprint">Ballpark estimate only — your exact quote is confirmed after inspection. Ranges are typical GTA market ranges; Paws Avenue Grooming Salon sets its own final prices.</p>
+</div>
+</main>
+<div class="banner"><div class="inner">This free demo was built for Paws Avenue Grooming Salon by <b>Tukk Solutions</b>. Want this calculator live on your own website, under your name, with your prices? It&rsquo;s part of our <b>CA$99/month</b> website plan — no setup fee. <a href="mailto:tukksolutions@gmail.com">tukksolutions@gmail.com</a></div></div>
+<footer>Instant Quote Calculator for Paws Avenue Grooming Salon &middot; Mississauga</footer>
+<script>
+function fmt(n){return "CA$"+Math.round(n).toLocaleString("en-CA")}
+function show(lo,hi,ctx,note){var r=document.getElementById("result");r.style.display="block";document.getElementById("amt").textContent=fmt(lo)+" \u2013 "+fmt(hi);document.getElementById("ctx").textContent=ctx;var n=document.getElementById("note");if(note){n.textContent=note;n.style.display="block"}else{n.style.display="none"}r.scrollIntoView({behavior:"smooth",block:"center"})}
+
+function calc(){
+ var size=document.getElementById("size").value;
+ var base={small:[45,65],medium:[60,85],large:[80,105],xl:[95,120]}[size];
+ var lo=base[0],hi=base[1];
+ var extras=[];
+ if(document.getElementById("cut").checked){lo+=30;hi+=60;extras.push("full cut")}
+ if(document.getElementById("deshed").checked){lo+=20;hi+=45;extras.push("de-shedding")}
+ if(document.getElementById("nails").checked){lo+=15;hi+=15;extras.push("nail trim")}
+ if(document.getElementById("teeth").checked){lo+=10;hi+=20;extras.push("teeth")}
+ var coat=document.getElementById("coat").value;
+ if(coat==="long"){lo+=10;hi+=25}
+ if(coat==="matted"){lo+=20;hi+=40}
+ var ctx="Bath & brush for a "+size+" dog"+(extras.length?(", plus "+extras.join(", ")):"")+(coat==="matted"?" — includes matted-coat work":coat==="long"?" — includes long-coat work":"")+" — typical GTA grooming range.";
+ show(lo,hi,ctx,"");
+}
+
+</script>
+</body>
+</html>
